@@ -7,7 +7,7 @@ version: '3.8'
 
 services:
   sstp-proxy:
-    image: ghcr.io/dakkidaze/sstp2socks:latest
+    image: ghcr.io/dakkidaze/sstp2socks:main
     container_name: sstp2socks
     privileged: true
     restart: always
