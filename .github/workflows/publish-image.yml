@@ -7,6 +7,8 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  # 彻底消除 Node 20 警告的环境变量
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build:
@@ -19,6 +21,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 如果你发现这一步仍有警告，可以尝试升级到 v3 的最新微版本，或者保持不变
       - name: Log in to the Container registry
         uses: docker/login-action@v3
         with:
@@ -26,8 +29,9 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # 升级到 v6 版本，完美适配 Node 24，不再弹黄字
       - name: Build and push Docker image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: true
